@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.Array
 
 import scala.collection.mutable.AnyRefMap
 import ar.com.pablitar.libgdx.commons.ResourceManager
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode
 
 /**
  * Created by pablitar on 22/12/16.
@@ -39,6 +40,12 @@ object Resources extends ResourceManager {
     val sp = atlas.createSprite("maceta",0)
     sp.setOriginCenter()
     sp
+  }
+  
+  def macetaAnimation = {
+    val sps = new Animation[Sprite](0.05f, sprites("maceta"))
+    sps.setPlayMode(PlayMode.LOOP)
+    sps
   }
   
   def macetaShadowSprite = {

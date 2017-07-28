@@ -35,8 +35,8 @@ class CatchTheThingGame extends ApplicationAdapter {
 
 object Entities {
   def catcher: Entity = {
-    val catcher = CommonEntities.movingSprite(Resources.macetaSprite, 
-        (Configuration.VIEWPORT_WIDTH/2.0f, Configuration.VIEWPORT_HEIGHT * 0.1f))
+    val catcher = CommonEntities.movingAnimated(Resources.macetaAnimation, 
+        (Configuration.VIEWPORT_WIDTH/2.0f, Configuration.VIEWPORT_HEIGHT * 0.15f))
     catcher.add(new CatcherComponent)
     catcher
   }
@@ -45,11 +45,17 @@ object Entities {
 class CatcherComponent extends Component
 
 class CatcherSystem extends IteratingSystem(Family.all(
-    classOf[CatcherComponent], classOf[TransformComponent], classOf[VelocityComponent]).get()
-    ) { 
+      classOf[CatcherComponent], classOf[TransformComponent], classOf[VelocityComponent]).get()
+      ) {  
   val speed = 600
   def processEntity(catcher: Entity, delta: Float): Unit = {
+    processCatcherInput(catcher)
+    restrictCatcherMovement(catcher)
+  }
+  
+  def processCatcherInput(catcher: Entity) = {
     val catcherVelocity :Vector2= (0,0)
+    
     if(Gdx.input.isKeyPressed(Keys.LEFT)) {
       catcherVelocity.x-=speed
     }
@@ -59,6 +65,18 @@ class CatcherSystem extends IteratingSystem(Family.all(
     }
     
     catcher.velocity = catcherVelocity
+  }
+
+  def restrictCatcherMovement(catcher: Entity) = {
+    if(catcher.position.x <= 0 && catcher.velocity.x < 0) {
+      catcher.position.x = 0
+      catcher.velocity.x = 0
+    }
+    
+    if(catcher.position.x >= Configuration.VIEWPORT_WIDTH && catcher.velocity.x > 0) {
+      catcher.position.x = Configuration.VIEWPORT_WIDTH
+      catcher.velocity.x = 0
+    }
   }
 }
 
