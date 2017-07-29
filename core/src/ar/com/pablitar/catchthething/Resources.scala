@@ -49,9 +49,15 @@ object Resources extends ResourceManager {
   }
   
   def macetaShadowSprite = {
-    val sp = atlas.createSprite("maceta-shadow",0)
+    val sp = atlas.createSprite("macetaShadow",0)
     sp.setOriginCenter()
     sp
+  }
+  
+  def macetaShadowAnimation = {
+    val sps = new Animation[Sprite](0.05f, sprites("macetaShadow"))
+    sps.setPlayMode(PlayMode.LOOP)
+    sps
   }
 
 }

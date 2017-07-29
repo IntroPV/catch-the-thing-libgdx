@@ -26,6 +26,7 @@ class CatchTheThingGame extends ApplicationAdapter {
   
   override def create() = {
     engine.addEntity(Entities.catcher)
+    engine.addEntity(Entities.catcherShadow)
   }
   
   override def render() = {
@@ -34,11 +35,17 @@ class CatchTheThingGame extends ApplicationAdapter {
 }
 
 object Entities {
+  val CATCHER_INITIAL_POSITION: Vector2 = (Configuration.VIEWPORT_WIDTH/2.0f, Configuration.VIEWPORT_HEIGHT * 0.15f)
   def catcher: Entity = {
-    val catcher = CommonEntities.movingAnimated(Resources.macetaAnimation, 
-        (Configuration.VIEWPORT_WIDTH/2.0f, Configuration.VIEWPORT_HEIGHT * 0.15f))
+    val catcher = CommonEntities.movingAnimated(Resources.macetaAnimation, CATCHER_INITIAL_POSITION)
     catcher.add(new CatcherComponent)
     catcher
+  }
+  
+  def catcherShadow: Entity = {
+    val catcherShadow = CommonEntities.movingAnimated(Resources.macetaShadowAnimation, CATCHER_INITIAL_POSITION, 2) 
+    catcherShadow.add(new CatcherComponent)
+    catcherShadow
   }
 }
 
