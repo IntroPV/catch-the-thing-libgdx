@@ -42,6 +42,13 @@ object Resources extends ResourceManager {
     sp
   }
   
+  def seedSprite: Sprite = {
+    val sp = atlasSprite("semilla")
+    sp.setOriginCenter()
+    sp.scale(0.2f)
+    sp
+  }
+  
   def macetaAnimation = {
     val sps = new Animation[Sprite](0.05f, sprites("maceta"))
     sps.setPlayMode(PlayMode.LOOP)

@@ -116,3 +116,10 @@ macetaShadow
   orig: 200, 200
   offset: 0, 0
   index: 7
+semilla
+  rotate: false
+  xy: 405, 337
+  size: 40, 66
+  orig: 40, 66
+  offset: 0, 0
+  index: -1
