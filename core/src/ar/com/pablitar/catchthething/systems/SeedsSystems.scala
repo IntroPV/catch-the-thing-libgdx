@@ -13,6 +13,7 @@ import ar.com.pablitar.catchthething.Configuration
 import com.badlogic.gdx.math.Vector2
 import ar.com.pablitar.libgdx.commons.family.Families
 import ar.com.pablitar.catchthething.components.SeedComponent
+import ar.com.pablitar.catchthething.components.CatcherFamilies
 
 class SeedSpawnerSystem extends IteratingSystem(classOf[SeedSpawnerComponent]) {
   def processEntity(seedSpawner: Entity, delta: Float): Unit = {
@@ -42,7 +43,7 @@ class SeedSpawnerSystem extends IteratingSystem(classOf[SeedSpawnerComponent]) {
   }
 }
 
-class SeedsSystem extends IteratingSystem(Families.kinematic.all(classOf[SeedComponent])) {
+class SeedsSystem extends IteratingSystem(CatcherFamilies.seeds) {
   def processEntity(seedSpawner: Entity, delta: Float): Unit = {
     seedSpawner.rotation = seedSpawner.velocity.angle() + 90
   }

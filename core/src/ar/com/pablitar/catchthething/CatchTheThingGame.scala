@@ -4,9 +4,9 @@ import com.badlogic.gdx.ApplicationAdapter
 import com.badlogic.gdx.Gdx
 
 import ar.com.pablitar.catchthething.systems.CatcherSystem
-import ar.com.pablitar.libgdx.commons.engines.Engines
 import ar.com.pablitar.catchthething.systems.SeedSpawnerSystem
 import ar.com.pablitar.catchthething.systems.SeedsSystem
+import ar.com.pablitar.libgdx.commons.engines.Engines
 
 class CatchTheThingGame extends ApplicationAdapter {
   
@@ -19,8 +19,11 @@ class CatchTheThingGame extends ApplicationAdapter {
   }
   
   override def create() = {
-    engine.addEntity(CTTEntities.catcher)
-    engine.addEntity(CTTEntities.catcherShadow)
+    val shadow = CTTEntities.catcherShadow
+    val top = CTTEntities.catcherTop
+    engine.addEntity(shadow)
+    engine.addEntity(top)
+    engine.addEntity(CTTEntities.catcher(shadow, top))
     engine.addEntity(CTTEntities.seedSpawner)
   }
   
