@@ -44,7 +44,7 @@ object Resources extends ResourceManager {
   
   def seedSprite: Sprite = {
     val sp = atlasSprite("semilla")
-    sp.setOriginCenter()
+    sp.setOrigin(sp.getWidth /2, sp.getHeight * 0.3f)
     sp.scale(0.2f)
     sp
   }

@@ -14,14 +14,27 @@ import ar.com.pablitar.libgdx.commons.components.VelocityComponent
 import ar.com.pablitar.libgdx.commons.extensions.VectorExtensions.fromTupleToVector2
 import ar.com.pablitar.catchthething.components.CatcherComponent
 import ar.com.pablitar.catchthething.components.Extensions._
+import ar.com.pablitar.libgdx.commons.components.Extensions._
+import ar.com.pablitar.libgdx.commons.extensions.FamilyImplicits._
 import ar.com.pablitar.catchthething.Configuration
+import ar.com.pablitar.catchthething.components.NonCaughtSeedComponent
+import ar.com.pablitar.catchthething.components.CaughtSeedComponent
+import ar.com.pablitar.catchthething.components.CTTFamilies
+import com.badlogic.ashley.core.EntitySystem
+import ar.com.pablitar.catchthething.components.CatcherTop
 
-class CatcherSystem extends IteratingSystem(Family.all(
-  classOf[CatcherComponent], classOf[TransformComponent], classOf[VelocityComponent]).get()) {
+class CatcherSystem extends EntitySystem {
   val speed = 600
-  def processEntity(catcher: Entity, delta: Float): Unit = {
+  lazy val catchers = this.getEngine.getEntitiesFor(CTTFamilies.catcher)
+  lazy val catcherTops = this.getEngine.getEntitiesFor(classOf[CatcherTop])
+  
+  def catcher = catchers.first()
+  def catcherTop = catcherTops.first()
+  
+  override def update(delta: Float) = {
     processCatcherInput(catcher)
     restrictCatcherMovement(catcher)
+    processCatcherCollisions(catcherTop)
   }
 
   def processCatcherInput(catcher: Entity) = {
@@ -48,5 +61,13 @@ class CatcherSystem extends IteratingSystem(Family.all(
       catcher.position.x = Configuration.VIEWPORT_WIDTH
       catcher.velocity.x = 0
     }
+  }
+
+  def processCatcherCollisions(catcherTop: Entity) = {
+    catcherTop.collisionEvents.foreach(ev => {
+      catcherTop.catcher.score = catcherTop.catcher.score + 1
+      ev.collided.remove(classOf[NonCaughtSeedComponent])
+      ev.collided.add(new CaughtSeedComponent(catcherTop.catcher))
+    })
   }
 }
