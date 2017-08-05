@@ -33,13 +33,13 @@ object CTTEntities {
       new Rectangle(0, 0,
         CATCHER_TOP_WIDTH, CATCHER_TOP_HEIGHT),
       CatcherFamilies.seeds)
-      catcherTop.add(BindingsComponent(catcher, Bindings.transform))
+      catcherTop.add(BindingsComponent(catcher, Bindings.transform(0, 40)))
     catcherTop
   }
 
   def catcherShadow(catcher: Entity): Entity = {
     val catcherShadow = Entities.animated(Resources.macetaShadowAnimation, CATCHER_INITIAL_POSITION, 2)
-    catcherShadow.add(BindingsComponent(catcher, Bindings.transform))
+    catcherShadow.add(BindingsComponent(catcher, Bindings.transform()))
     catcherShadow
   }
 

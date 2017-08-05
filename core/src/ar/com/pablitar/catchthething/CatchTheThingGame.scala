@@ -11,7 +11,7 @@ import ar.com.pablitar.libgdx.commons.engines.Engines
 class CatchTheThingGame extends ApplicationAdapter {
   
   lazy val engine = {
-    val commonEngine = Engines.commonEngine()
+    val commonEngine = Engines.commonEngine(true)
     commonEngine.addSystem(new CatcherSystem)
     commonEngine.addSystem(new SeedSpawnerSystem)
     commonEngine.addSystem(new SeedsSystem)
