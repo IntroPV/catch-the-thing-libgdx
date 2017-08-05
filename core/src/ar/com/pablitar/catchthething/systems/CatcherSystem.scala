@@ -16,45 +16,37 @@ import ar.com.pablitar.catchthething.components.CatcherComponent
 import ar.com.pablitar.catchthething.components.Extensions._
 import ar.com.pablitar.catchthething.Configuration
 
-
 class CatcherSystem extends IteratingSystem(Family.all(
-        classOf[CatcherComponent], classOf[TransformComponent], classOf[VelocityComponent]).get()
-        ) {   
+  classOf[CatcherComponent], classOf[TransformComponent], classOf[VelocityComponent]).get()) {
   val speed = 600
   def processEntity(catcher: Entity, delta: Float): Unit = {
     processCatcherInput(catcher)
     restrictCatcherMovement(catcher)
-    updateOtherEntities(catcher)
   }
-  
+
   def processCatcherInput(catcher: Entity) = {
-    val catcherVelocity :Vector2= (0,0)
-    
-    if(Gdx.input.isKeyPressed(Keys.LEFT)) {
-      catcherVelocity.x-=speed
+    val catcherVelocity: Vector2 = (0, 0)
+
+    if (Gdx.input.isKeyPressed(Keys.LEFT)) {
+      catcherVelocity.x -= speed
     }
-    
-    if(Gdx.input.isKeyPressed(Keys.RIGHT)) {
-      catcherVelocity.x+=speed
+
+    if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
+      catcherVelocity.x += speed
     }
-    
+
     catcher.velocity = catcherVelocity
   }
 
   def restrictCatcherMovement(catcher: Entity) = {
-    if(catcher.position.x <= 0 && catcher.velocity.x < 0) {
+    if (catcher.position.x <= 0 && catcher.velocity.x < 0) {
       catcher.position.x = 0
       catcher.velocity.x = 0
     }
-    
-    if(catcher.position.x >= Configuration.VIEWPORT_WIDTH && catcher.velocity.x > 0) {
+
+    if (catcher.position.x >= Configuration.VIEWPORT_WIDTH && catcher.velocity.x > 0) {
       catcher.position.x = Configuration.VIEWPORT_WIDTH
       catcher.velocity.x = 0
     }
-  }
-
-  def updateOtherEntities(catcher: Entity) = {
-    catcher.shadow.position = catcher.position
-    catcher.top.position = catcher.position
   }
 }

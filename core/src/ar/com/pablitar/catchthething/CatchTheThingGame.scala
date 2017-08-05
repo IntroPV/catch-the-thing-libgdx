@@ -19,11 +19,10 @@ class CatchTheThingGame extends ApplicationAdapter {
   }
   
   override def create() = {
-    val shadow = CTTEntities.catcherShadow
-    val top = CTTEntities.catcherTop
-    engine.addEntity(shadow)
-    engine.addEntity(top)
-    engine.addEntity(CTTEntities.catcher(shadow, top))
+    val catcher = CTTEntities.catcher
+    engine.addEntity(catcher)
+    engine.addEntity(CTTEntities.catcherShadow(catcher))
+    engine.addEntity(CTTEntities.catcherTop(catcher))
     engine.addEntity(CTTEntities.seedSpawner)
   }
   

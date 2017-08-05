@@ -50,7 +50,7 @@ object Resources extends ResourceManager {
   }
   
   def macetaAnimation = {
-    val sps = new Animation[Sprite](0.05f, sprites("maceta"))
+    val sps = new Animation[Sprite](0.07f, sprites("maceta"))
     sps.setPlayMode(PlayMode.LOOP)
     sps
   }
@@ -62,7 +62,7 @@ object Resources extends ResourceManager {
   }
   
   def macetaShadowAnimation = {
-    val sps = new Animation[Sprite](0.05f, sprites("macetaShadow"))
+    val sps = new Animation[Sprite](0.07f, sprites("macetaShadow"))
     sps.setPlayMode(PlayMode.LOOP)
     sps
   }

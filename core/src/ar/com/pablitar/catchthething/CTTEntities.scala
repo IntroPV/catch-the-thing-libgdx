@@ -13,28 +13,33 @@ import com.badlogic.gdx.math.Rectangle
 import com.badlogic.ashley.core.Family
 import ar.com.pablitar.catchthething.components.CatcherFamilies
 import com.badlogic.gdx.math.Circle
+import ar.com.pablitar.libgdx.commons.components.BindingsComponent
+import ar.com.pablitar.libgdx.commons.components.TransformComponent
+import ar.com.pablitar.libgdx.commons.components.Bindings
 
 object CTTEntities {
   val CATCHER_INITIAL_POSITION: Vector2 = (Configuration.VIEWPORT_WIDTH / 2.0f, Configuration.VIEWPORT_HEIGHT * 0.15f)
   val CATCHER_TOP_WIDTH = 200
   val CATCHER_TOP_HEIGHT = 200
-  def catcher(shadow: Entity, top: Entity): Entity = {
+  def catcher: Entity = {
     val catcher = Entities.movingAnimated(Resources.macetaAnimation, CATCHER_INITIAL_POSITION)
-    catcher.add(new CatcherComponent(shadow, top))
+    catcher.add(new CatcherComponent())
     catcher
   }
 
-  def catcherTop: Entity = {
+  def catcherTop(catcher: Entity): Entity = {
     val catcherTop = Entities.collider(
       CATCHER_INITIAL_POSITION,
       new Rectangle(0, 0,
         CATCHER_TOP_WIDTH, CATCHER_TOP_HEIGHT),
       CatcherFamilies.seeds)
+      catcherTop.add(BindingsComponent(catcher, Bindings.transform))
     catcherTop
   }
 
-  def catcherShadow: Entity = {
-    val catcherShadow = Entities.movingAnimated(Resources.macetaShadowAnimation, CATCHER_INITIAL_POSITION, 2)
+  def catcherShadow(catcher: Entity): Entity = {
+    val catcherShadow = Entities.animated(Resources.macetaShadowAnimation, CATCHER_INITIAL_POSITION, 2)
+    catcherShadow.add(BindingsComponent(catcher, Bindings.transform))
     catcherShadow
   }
 
