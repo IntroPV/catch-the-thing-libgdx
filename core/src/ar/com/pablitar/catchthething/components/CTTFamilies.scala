@@ -8,6 +8,7 @@ object CTTFamilies {
   }
   
   def nonCaughtSeeds = Families.kinematicCollidable(classOf[SeedComponent], classOf[NonCaughtSeedComponent]).get
+  def caughtSeeds = Families.kinematicCollidable(classOf[SeedComponent], classOf[CaughtSeedComponent]).get
   
   def catcher = Families.kinematic(classOf[CatcherComponent]).get
 }

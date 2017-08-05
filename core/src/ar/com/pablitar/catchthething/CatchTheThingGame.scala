@@ -7,14 +7,20 @@ import ar.com.pablitar.catchthething.systems.CatcherSystem
 import ar.com.pablitar.catchthething.systems.SeedSpawnerSystem
 import ar.com.pablitar.catchthething.systems.SeedsSystem
 import ar.com.pablitar.libgdx.commons.engines.Engines
+import ar.com.pablitar.catchthething.systems.CatcherDebugSystem
 
 class CatchTheThingGame extends ApplicationAdapter {
   
+  val debug = true 
+  
   lazy val engine = {
-    val commonEngine = Engines.commonEngine(true)
+    val commonEngine = Engines.commonEngine(debug)
     commonEngine.addSystem(new CatcherSystem)
     commonEngine.addSystem(new SeedSpawnerSystem)
     commonEngine.addSystem(new SeedsSystem)
+    if(debug) {
+      commonEngine.addSystem(new CatcherDebugSystem)
+    }
     commonEngine
   }
   

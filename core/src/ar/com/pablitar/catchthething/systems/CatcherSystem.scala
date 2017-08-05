@@ -22,6 +22,7 @@ import ar.com.pablitar.catchthething.components.CaughtSeedComponent
 import ar.com.pablitar.catchthething.components.CTTFamilies
 import com.badlogic.ashley.core.EntitySystem
 import ar.com.pablitar.catchthething.components.CatcherTop
+import ar.com.pablitar.libgdx.commons.rendering.Renderers
 
 class CatcherSystem extends EntitySystem {
   val speed = 600
