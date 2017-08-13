@@ -11,7 +11,7 @@ import ar.com.pablitar.catchthething.systems.CatcherDebugSystem
 
 class CatchTheThingGame extends ApplicationAdapter {
   
-  val debug = true 
+  val debug = false 
   
   lazy val engine = {
     val commonEngine = Engines.commonEngine(debug)

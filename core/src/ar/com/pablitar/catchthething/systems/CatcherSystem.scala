@@ -23,6 +23,7 @@ import ar.com.pablitar.catchthething.components.CTTFamilies
 import com.badlogic.ashley.core.EntitySystem
 import ar.com.pablitar.catchthething.components.CatcherTop
 import ar.com.pablitar.libgdx.commons.rendering.Renderers
+import ar.com.pablitar.catchthething.CatcherStates
 
 class CatcherSystem extends EntitySystem {
   val speed = 600
@@ -69,6 +70,7 @@ class CatcherSystem extends EntitySystem {
       catcherTop.catcher.score = catcherTop.catcher.score + 1
       ev.collided.remove(classOf[NonCaughtSeedComponent])
       ev.collided.add(new CaughtSeedComponent(catcherTop.catcher))
+      catcherTop.catcher.changeStateTo(CatcherStates.Catching)
     })
   }
 }

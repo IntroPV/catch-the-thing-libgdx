@@ -19,6 +19,12 @@ import ar.com.pablitar.libgdx.commons.components.Bindings
 import ar.com.pablitar.catchthething.components.NonCaughtSeedComponent
 import ar.com.pablitar.catchthething.components.CatcherTop
 import ar.com.pablitar.libgdx.commons.math.Segment2
+import ar.com.pablitar.libgdx.commons.components.StateBindingComponent
+import scala.collection.mutable.AnyRefMap
+import ar.com.pablitar.libgdx.commons.components.StateBinding
+import ar.com.pablitar.libgdx.commons.components.SpriteComponent
+import ar.com.pablitar.libgdx.commons.components.SpriteAnimationComponent
+import ar.com.pablitar.libgdx.commons.components.StateComponent
 
 object CTTEntities {
   val CATCHER_INITIAL_POSITION: Vector2 = (Configuration.VIEWPORT_WIDTH / 2.0f, Configuration.VIEWPORT_HEIGHT * 0.15f)
@@ -27,6 +33,13 @@ object CTTEntities {
   def catcher: Entity = {
     Entities.movingSprite(Resources.macetaSprite, CATCHER_INITIAL_POSITION)
       .add(new CatcherComponent(Segment2((-90, 88), (-40, -60)), Segment2((40, -60), (90, 88)), Segment2((-40, -60), (40, -60))))
+      .add(new StateComponent(CatcherStates.Idle))
+      .add(new StateBindingComponent(AnyRefMap(
+            CatcherStates.Idle -> StateBinding(classOf[SpriteComponent], () => SpriteComponent(Resources.macetaSprite)),
+            CatcherStates.Catching -> StateBinding(classOf[SpriteAnimationComponent], () => SpriteAnimationComponent(Resources.macetaAnimation))
+          )
+        )
+      )
   }
 
   def catcherTop(catcher: Entity): Entity = {
@@ -41,7 +54,13 @@ object CTTEntities {
 
   def catcherShadow(catcher: Entity): Entity = {
     Entities.simpleSprite(Resources.macetaShadowSprite, CATCHER_INITIAL_POSITION, 2)
-      .add(BindingsComponent(catcher, Bindings.transform()))
+      .add(BindingsComponent(catcher, Bindings.transform(), Bindings.state()))
+      .add(new StateBindingComponent(AnyRefMap(
+            CatcherStates.Idle -> StateBinding(classOf[SpriteComponent], () => SpriteComponent(Resources.macetaShadowSprite)),
+            CatcherStates.Catching -> StateBinding(classOf[SpriteAnimationComponent], () => SpriteAnimationComponent(Resources.macetaShadowAnimation))
+          )
+        )
+      )
   }
   
   val SEED_RADIUS = 20
