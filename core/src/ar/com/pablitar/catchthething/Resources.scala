@@ -34,7 +34,7 @@ object Resources extends ResourceManager {
   //    result
   //  }
 
-  lazy val atlas = new TextureAtlas("pack.atlas")
+  override lazy val atlas = new TextureAtlas("pack.atlas")
   
   def macetaSprite = {
     val sp = atlas.createSprite("maceta",0)
